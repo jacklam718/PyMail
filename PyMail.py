@@ -384,24 +384,15 @@ Version   ✍ : 0.10
 
 --------------------------------------------------------------------
 Thank you use the ( J'MAIL ) Program. 
-I'm Python Beginner so. this program is only basic simple functions.   
-If you have nay comments about this program or you would like to add
-me as a fiend also can to contact me.
+This program at the monment just only basic simple functions, if you have nay 
+comments about this program or you would like to add me as a fiend also can to 
+contact me.
 
-Else: If you think this source code is useful I also welcome you use it.  
+Some else this is a open source program so if you think this source code is useful 
+you can use, modify or add new functions.  
 
 Thank you so much.
-
-
-感謝您使用（J'MAIL）程序,
-我是Python的初學者, 這個程序是只有基本的簡單功能。
-如果你有什麼關於此程序的意見，或者您想添加
-我作為一個朋友，也可以與我聯繫。
-
-還有: 如果您認為此源代碼有用也非常歡迎你使用
-
-非常感謝您。
-""".lstrip( )
+"""
         #self.displayMessage(otherMsg=introductionMsg)
 
     def Exit(self): 
