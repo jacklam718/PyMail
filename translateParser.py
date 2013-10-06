@@ -78,8 +78,6 @@ the graphics. For playing you will need Unity Web Player.
 	#print(resp)
 
 
-
-	
 	rule = textwrap.TextWrapper(60) 
 	print(rule.fill(text))
 	print('-'*70) 
