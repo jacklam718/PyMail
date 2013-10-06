@@ -161,23 +161,3 @@ def HKDateFormat(date):
         else: 
             date = '/'.join([y, m, d])
     return date
-
-if __name__ == '__main__': 
-    prs = Parser( )
-    obj = prs.parseMessage('jack')
-    print(type(obj))    
-    text = '''
-    隕石墜落之處引發猛烈爆炸，時產生強烈氣流, 震碎多棟建築物的窗戶
-    ，有工廠的幾千呎屋頂塌下而大多數人是被震碎的玻璃割傷，暫未有報
-    告顯示有人被殞石碎片直接擊隕石墜落之處引發猛烈爆炸，時產werwerwes生強烈氣流, 震碎多棟建築物的窗戶
-    ，有工廠的幾千呎屋頂塌下而大多fghgfhf數人是被震碎的玻璃割傷，暫未有報
-    告顯示有人被殞石碎片直接擊隕石墜落之處引發猛烈爆炸，時產werwerwes生強烈氣流, 震碎多棟建築物的窗戶
-    ，有工廠的幾千呎屋頂塌下而大多fghgfhf數人是被震碎的玻璃割傷，暫未有報
-    告顯示有人被殞石碎片直接擊
-    '''
-    litters = 'A' * 100
-    c = '時產werwerwes生強烈氣流, 震碎多棟建築物的窗戶，有工廠的幾千呎屋頂塌下而大多fghgfhf數人是被震碎的玻璃割'
-    l = 'A'* 100
-    print('%s\n%s' % (text_alignment(text, 10), text_alignment(litters, 10)))
-    
-    input( )
