@@ -355,7 +355,6 @@ class PyMail(Fetcher):
 		addr = messageDict[ linenum ] 
 		addr = Parser( ).getAddress(addr) 
 
-
 	def Save(self):  
 		savepath = askfilesave(title='Save message', message='Please input save path or use default directory')
 		if savepath:  
@@ -370,7 +369,6 @@ class PyMail(Fetcher):
 				info = 'File name : %s\nError type: %s\n\n%s' % (err.filename, err.strerror, 'Please input again')
 				showmessage(title='Save fail', message=info)
 				self.Save( ) 
-
 
 	def Translate(self):
 		'''
@@ -391,8 +389,6 @@ class PyMail(Fetcher):
 		message[-1] = text
 		self.displayMessage(msg=message)
 		
-
-
 	def Option(self): 
 		pass
 
@@ -401,9 +397,6 @@ class PyMail(Fetcher):
 		rectangle(self.win, 20, 20, self.Y, self.X)
 		win = self.win
 		win.getch( )
-
-
-
 		introductionMsg = """
 Developer 〄 : Jack Lam
 Email     ✉ : jacklam718@gmail.com
@@ -424,13 +417,10 @@ Thank you so much.
 	def Exit(self): 
 		pass 
 
-
 	def textEdit(self):
 		win   = self.win; Y, X = self.Y, self.X 
 		hight, width = Y-8, X-2
 		subw  = curses.newwin(hight, width, 8, 1)
-	
-	 
 
 	def __call__(self):  
 		select = self.topbarFocus 
@@ -438,7 +428,6 @@ Thank you so much.
 		screen.addstr(23, 50, 'Topbar Function call: %s' % select)
 		screen.refresh( )  
 		#return eval(TARBAR_dict[select]) 
-
 
 """
 class messageBox: 
@@ -456,8 +445,6 @@ class messageBox:
 	def scrollText(self): 
 """
 
-
-
 def rectangle(win, lines, cols, hight, width):
 	try: 
 		win.vline(lines+1, cols,   curses.ACS_VLINE, hight - lines - 1)
@@ -470,8 +457,6 @@ def rectangle(win, lines, cols, hight, width):
 		win.addch(hight,   width,  curses.ACS_LRCORNER)
 	except curses.error: 
 		pass    
-
-
 
 def keyHandler(tbmbox, KeyRecord=[]):
 	key = screen.getch( )
@@ -510,11 +495,9 @@ def keyHandler(tbmbox, KeyRecord=[]):
 		return False 
 	return True   
 
-
 def Main(stdscr): 
 	global screen, color_red, color_green, color_blue, color_normal, y, x 
 	screen  = stdscr
-
 	screen.keypad(True) 
 	curses.noecho( ) 
 	curses.cbreak( )
@@ -533,7 +516,6 @@ def Main(stdscr):
 	color_blue   = curses.color_pair(3)
 	color_normal = curses.color_pair(4) 
 
-
 	tbmbox = PyMail('Your mail server', 'Your email address', 'Your email password', 'SSL True or False') 
 	
 	while True: 
@@ -541,8 +523,6 @@ def Main(stdscr):
 		tbmbox.Topbar( )
 		keyHandler(tbmbox)
 	   
-
-
 if __name__ == '__main__': 
 	import os 
 	os.system('resize -s 32 115') 
