@@ -547,4 +547,3 @@ if __name__ == '__main__':
 	import os 
 	os.system('resize -s 32 115') 
 	curses.wrapper(Main)
-	
