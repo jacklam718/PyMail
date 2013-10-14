@@ -34,9 +34,11 @@ class PyMail(Fetcher):
 		self.display_pos  = [ ]
 		#self.Translate( )
 		self.MakeMainWindow( )
+		#self.Help( ) 
+		
 		#self.loadAllHeaders( )
 		self.loadAllMessages( )
-	  
+
 
 	def MakeMainWindow(self):
 		y, x = 2, 1
@@ -51,7 +53,7 @@ class PyMail(Fetcher):
 		y, x = 2, int(self.X*0.3)+1
 		height, width = 2, self.X-(int(self.X*0.3))-2
 		self.titleWin = self.win.subwin(height, width, y, x)
-		 
+
 		# previewWin 
 		y, x = height*3, int(self.X*0.3)+1
 		height, width = self.Y-y, self.X-(int(self.X*0.3))-2
@@ -69,7 +71,7 @@ class PyMail(Fetcher):
 		y, x = 2, 1
 		height, width = self.Y-3, int(self.X*0.3)-2 
 		rectangle(self.win, y-1, x-1, height+2, width+x)
-		
+
 		self.win.attrset(color_blue | curses.A_BOLD) 
 		# titleFrame
 		y, x = 2, int(self.X*0.3)+1
@@ -106,7 +108,7 @@ class PyMail(Fetcher):
 		self.markLine( ) 
 
 		self.win.erase( )
-		
+
 		# headerWin
 		y, x = 2, 1
 		height, width = 4, self.X-2
@@ -133,7 +135,7 @@ class PyMail(Fetcher):
 		#Y, X = self.y, self.x 
 		hight, width = self.Y-9, self.X-2
 		msgnum = self.topLineNum + self.highlightLineNum + 1 
-		
+
 		# get subject, from, date, message to display
 		if not kw: 
 			subj, frm, to, date, msg = messageDict.get(msgnum, 'Error')
@@ -143,7 +145,7 @@ class PyMail(Fetcher):
 
 
 		msg = textwrap(text=msg, width=width).split('\n')  
-		
+
 		headerWin.addstr(0, 0, 'Subject: %s' % subj.strip( ))#[0:self.X-12])
 		headerWin.addstr(1, 0, 'From   : %s' % frm.strip( ) )#[0:self.X-9]) 
 		headerWin.addstr(2, 0, 'To     : %s' % to.strip( )  )#[0:self.X-9]) 
@@ -162,7 +164,7 @@ class PyMail(Fetcher):
 		""" 
 		lastKey   = int( ) 
 		textlines = len(text)
-		self.quit = False 
+		self.abort = False 
 		self.Topbar( )
 
 		while True: 
@@ -194,7 +196,7 @@ class PyMail(Fetcher):
 			elif key == 10 and lastKey in (curses.KEY_LEFT, curses.KEY_RIGHT):
 				self.callfunc( )
 
-			elif key == ord('q') or self.quit: 
+			if key == ord('q') or self.abort: 
 				break 
 			lastKey = key
 
@@ -203,7 +205,7 @@ class PyMail(Fetcher):
 		self.win.erase( )
 		top    = self.topLineNum
 		bottom = self.topLineNum + self.WIN_LINES
-		
+
 		for (index, line) in enumerate(self.indexList[top:bottom]):
 			linenum = self.topLineNum + index
 			if linenum in self.markedLineNum:
@@ -229,7 +231,7 @@ class PyMail(Fetcher):
 		self.Frame( )
 		self.win.refresh( )
 
-	   
+
 	def markLine(self): 
 		marklinenum = self.highlightLineNum + self.topLineNum 
 		if marklinenum in self.markedLineNum: 
@@ -279,15 +281,15 @@ class PyMail(Fetcher):
 		self.indexList = [hdr[:33].rstrip() for hdr in fromList]   
 		self.indexList.reverse( ) 
 		self.outputLineNum = len(self.indexList) 
-		
+
 		messageList = [ parser.parseMessage( message ) for message in messageList ]
 		messageList = [ parser.findText( message )[1]  for message in messageList ]    
-		
+
 		count = self.outputLineNum
 		for (subj, frm, to, date, msg) in zip( subjList, fromList, toList, dateList, messageList ):
 			messageDict[ count ]  = [subj, frm, to, date, msg] 
 			count -= 1
-		 
+
 	def up_down(self, increment): 
 		""" 
 		Scrolling index
@@ -323,7 +325,7 @@ class PyMail(Fetcher):
 
 	def Compose(self): 
 		self.composeWin( ) 
-		
+
 
 	def callfunc(self): 
 		funcdict= {1: 'Compose( )',  2: 'Save( )' ,   3: 'Delete( )', 
@@ -355,6 +357,7 @@ class PyMail(Fetcher):
 		addr = messageDict[ linenum ] 
 		addr = Parser( ).getAddress(addr) 
 
+
 	def Save(self):  
 		savepath = askfilesave(title='Save message', message='Please input save path or use default directory')
 		if savepath:  
@@ -381,23 +384,22 @@ class PyMail(Fetcher):
 		#self.win.refresh(  ) 
 		s.getch( ) 
 		'''
-
 		from translateParser import Translation
 		msgnum  = self.topLineNum + self.highlightLineNum + 1 
 		message = messageDict.get(msgnum)
 		text = Translation(message[-1])
 		message[-1] = text
 		self.displayMessage(msg=message)
-		
+		if self.abort: 
+			self.abort = False
+		else: 
+			self.abort = True 
+
 	def Option(self): 
 		pass
 
-	def Help(self): 
-		
-		rectangle(self.win, 20, 20, self.Y, self.X)
-		win = self.win
-		win.getch( )
-		introductionMsg = """
+	def Help(self):
+		msg = """
 Developer 〄 : Jack Lam
 Email     ✉ : jacklam718@gmail.com
 Version   ✍ : 0.10  
@@ -411,9 +413,17 @@ me as a fiend also can to contact me.
 Else: If you think this source code is useful I also welcome you use it.  
 
 Thank you so much.
-"""
-		#self.displayMessage(otherMsg=introductionMsg)
+""".lstrip()
+		msg = msg.split('\n') 
+		hight, width = self.Y-3, self.X-2
 
+		top    = 0
+		bottom = hight-2  
+
+		s = self.win.subwin(self.Y-3, self.X-2, 2, 1)
+		rectangle(self.win, 1, 0, self.Y-1, self.X-1)
+		self.scrollingText(textpad=s, text=msg, top=0, bottom=bottom, y=hight-1, x=width)
+		 
 	def Exit(self): 
 		pass 
 
@@ -422,28 +432,6 @@ Thank you so much.
 		hight, width = Y-8, X-2
 		subw  = curses.newwin(hight, width, 8, 1)
 
-	def __call__(self):  
-		select = self.topbarFocus 
-		# Test 
-		screen.addstr(23, 50, 'Topbar Function call: %s' % select)
-		screen.refresh( )  
-		#return eval(TARBAR_dict[select]) 
-
-"""
-class messageBox: 
-	def __init__(self): 
-
-		pass 
-
-	def textPad(self): 
-		rectangle
-
-	def messageWin(self): 
-
-
-
-	def scrollText(self): 
-"""
 
 def rectangle(win, lines, cols, hight, width):
 	try: 
@@ -458,7 +446,9 @@ def rectangle(win, lines, cols, hight, width):
 	except curses.error: 
 		pass    
 
-def keyHandler(tbmbox, KeyRecord=[]):
+
+
+def keyHandler(mailbox, KeyRecord=[]):
 	key = screen.getch( )
 	# remember recent key 
 	if key in (258, 259, 260, 261): KeyRecord.append(key)
@@ -470,34 +460,36 @@ def keyHandler(tbmbox, KeyRecord=[]):
 
 	# for key Up and Down
 	if key == curses.KEY_UP: 
-		tbmbox.up_down(-1) 
+		mailbox.up_down(-1) 
 	elif key == curses.KEY_DOWN: 
-		tbmbox.up_down( 1 )  
-		 
+		mailbox.up_down( 1 )  
+
 	# for key Left and Right 
 	elif key == curses.KEY_LEFT:
-		tbmbox.left_right(-1) 
+		mailbox.left_right(-1) 
 	elif key == curses.KEY_RIGHT:
-		tbmbox.left_right( 1 )
-		
+		mailbox.left_right( 1 )
+
 	if key == ord('\n') and RecentKey in (curses.KEY_UP, curses.KEY_DOWN): 
-		tbmbox.displayMessage( )
-		
+		mailbox.displayMessage( )
+
 	elif key == ord('\n') and RecentKey in (curses.KEY_LEFT, curses.KEY_RIGHT): 
-		tbmbox.callfunc( )
-		
+		mailbox.callfunc( )
+
 	# for space key to mark message 
 	elif key == 32: 
-		tbmbox.markLine( )
+		mailbox.markLine( )
 
 	# for exit key  
 	elif key == 27: 
 		return False 
 	return True   
 
+
 def Main(stdscr): 
 	global screen, color_red, color_green, color_blue, color_normal, y, x 
 	screen  = stdscr
+
 	screen.keypad(True) 
 	curses.noecho( ) 
 	curses.cbreak( )
@@ -516,13 +508,15 @@ def Main(stdscr):
 	color_blue   = curses.color_pair(3)
 	color_normal = curses.color_pair(4) 
 
-	tbmbox = PyMail('Your mail server', 'Your email address', 'Your email password', 'SSL True or False') 
-	
+	pymail = PyMail('Your mail server', 'Your email address', 'Your email password', 'SSL True or False')
+
 	while True: 
-		tbmbox.scrollingRefresh( )
-		tbmbox.Topbar( )
-		keyHandler(tbmbox)
-	   
+		pymail.scrollingRefresh( )
+		pymail.Topbar( )
+		keyHandler(mailbox=pymail)
+
+
+
 if __name__ == '__main__': 
 	import os 
 	os.system('resize -s 32 115') 
