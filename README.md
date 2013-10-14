@@ -1,3 +1,7 @@
+![alt tag](http://i1278.photobucket.com/albums/y516/jacklam718/pymail6_zpsc806d795.png)
+![alt tag](http://i1278.photobucket.com/albums/y516/jacklam718/pymail3_zps6156bea0.png) 
+![alt tag](http://i1278.photobucket.com/albums/y516/jacklam718/pymail2_zps6ba97738.png)
+![alt tag](http://i1278.photobucket.com/albums/y516/jacklam718/pymail_zpsf6dfb1f8.png)
 PyMail
 ======
 
@@ -11,8 +15,8 @@ This is a console email client program base in curses interface
 
 Requirements
 ============
-Python3.x 
-Color terminal 
+* Python3.x
+* A Color terminal
 
 
 Platform
