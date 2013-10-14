@@ -1,10 +1,10 @@
-<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail6_zpsc806d795.png" alt="hello" width="600px" height="300px" />
+<img  src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail6_zpsc806d795.png" alt="Loading email progressbar" width="600px" height="300px" />
 
-<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail3_zps6156bea0.png" width="600px" height="300px" />
+<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail3_zps6156bea0.png" alt="Main window" width="600px" height="300px" />
 
-<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail2_zps6ba97738.png" width="600px" height="300px" />
+<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail2_zps6ba97738.png" alt="Message window" width="600px" height="300px" />
 
-<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail_zpsf6dfb1f8.png" alt="hello" width="600px" height="300px" />
+<img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail_zpsf6dfb1f8.png"  alt="Translated message" width="600px" height="300px" />
 
 
 
