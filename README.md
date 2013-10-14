@@ -1,19 +1,15 @@
 PyMail
 ======
-
 Python curses email program 
-
 
 About
 =====
 This is a console email client program base in curses interface
 
-
 Requirements
 ============
 * Python3.x
 * A Color terminal
-
 
 Platform
 ========
@@ -34,8 +30,3 @@ Screenshot
 
 #####Translated message
   <img src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail_zpsf6dfb1f8.png"  alt="Translated message" width="500px" height="250px" />
-
-
-
-
-
