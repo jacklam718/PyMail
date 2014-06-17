@@ -22,7 +22,7 @@ class GoogleTransParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
 		if tag == 'span' and ('id', 'result_box') in attrs: 
 			self.save = True 
-
+ 
 		elif tag == 'td':
 			self.textwrap( )
 		elif tag == 'br': 
