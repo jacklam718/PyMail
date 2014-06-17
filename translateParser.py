@@ -44,7 +44,6 @@ class GoogleTransParser(HTMLParser):
 		if data != ' ' * len(data):  
 			self.addtext(data)
 
-
 	def handle_entityref(self, name): 
 		xlate = dict(lt='<', gt='>', amp='&', nsbp='').get(name, '?') 
 		if xlate: 
@@ -52,36 +51,3 @@ class GoogleTransParser(HTMLParser):
 
 def TranslateParser(html, strict=False): 
 	p = GoogleTransParser(strict); p.feed(html); return p.text
-	
-
-if __name__ == '__main__': 
-	import urllib.request, sys, textwrap
-
-	text = ' '.join(sys.argv[1:])
-	if text == '': 
-		text = '''
-Here is a reproduction of the legendary game Counter-Strike directly into your browser. 
-You can play as a singleplayer, playing with bots, or as a multiplayer. There are several 
-modes, as for example DeathMatch, Matrix mode, Zombie mode, Survival and more.In addition, 
-you can choose servers according to the continent. The best is of course to play in your 
-continent, where the pings are quite small. And one more piece of advice for you: if you 
-have full HD, turn off the highest quality or you could experience some problems with 
-the graphics. For playing you will need Unity Web Player.
-''' 
-	#text = open('/home/jack/weijr, tzerjen@gmail.com', 'r').read( )
-
-	url  = 'http://translate.google.com.hk'
-	query_args = {'hl': 'zh-TW', 'ie': 'utf8', 'text': text, 'langpair': 'en|zh-TW'}; query_args = urllib.parse.urlencode(query_args)
-	query_args = query_args.encode('utf8') 
-	request = urllib.request.Request(url, query_args) 
-	request.add_header('User-agent', 'Mozilla/4.0 (Compatible; MSIE 7.0; Windows NT)')
-	html = urllib.request.urlopen(request).read( ).decode('utf8')
-	#print(resp)
-
-
-	rule = textwrap.TextWrapper(60) 
-	print(rule.fill(text))
-	print('-'*70) 
-	rule = textwrap.TextWrapper(30) 
-	print(rule.fill(TranslateParser(html)))
-	
