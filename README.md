@@ -1,6 +1,6 @@
 PyMail
 ======
-Python curses email program 
+Python POP3 email program, UI use the curses
 
 About
 =====
