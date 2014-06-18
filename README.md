@@ -19,7 +19,7 @@ because the curses library not support in Windows.
 
 Screenshot
 ==========
-##### Download  emails show in progressbar
+##### Downloading  emails show in progressbar
   <img  src="http://i1278.photobucket.com/albums/y516/jacklam718/pymail6_zpsc806d795.png" alt='Loading email progressbar'  width="500px" height="250px" />
 
 ##### Main window
